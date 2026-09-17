@@ -18,4 +18,5 @@ except Exception:
     db_cur.execute("CREATE DATABASE gamer_data")
     db_cur.execute("USE gamer_data") 
 
-
+def Retrive_Gamer_Data():
+    pass

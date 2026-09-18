@@ -75,4 +75,8 @@ def Input_Gamer_Data():
     
     Commit_to_Table(gamer_data_tuple)
 
+def Bring_gamer_data():
+    db_cur.execute("Select * from general_info")
+    print(db_cur.fetchall())
+
 Input_Gamer_Data()

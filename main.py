@@ -1,3 +1,9 @@
+#   Project by UnNilHexium, TepicKid, WhiteDiger
+#              UnNilHexium - Codebase, Debugging
+#              TepicKid    - Idea, Synopsis
+#              WhiteDiger  - Testing, Pitch
+
+
 import mysql.connector as m
 import PIL
 

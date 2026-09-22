@@ -81,6 +81,15 @@ def Input_Gamer_Data():
     
     Commit_to_Table(gamer_data_tuple)
 
+def Fetch_Game_Tag_Data(tag):
+    db_cur.execute("select * from general_info where gamer_tag = %s", (tag,))
+    result = db_cur.fetchone()
+    return result
+
+def Gen_Card(data):
+    
+
+
 def Bring_gamer_data():
     db_cur.execute("Select * from general_info")
     print(db_cur.fetchall())

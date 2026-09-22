@@ -2,10 +2,10 @@
 #              UnNilHexium - Codebase, Debugging
 #              TepicKid    - Idea, Synopsis
 #              WhiteDiger  - Testing, Pitch
-
+#              Gemini AI   - Teaching/Guidance/Code
 
 import mysql.connector as m
-import PIL
+from PIL import Image, ImageDraw, ImageFont
 
 
 try:
@@ -52,10 +52,10 @@ def Commit_to_Table(data):
                  VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'''
         
         db_cur.execute(sql, data)
-        db_conn.commit()  
+        gamer_data.commit()  
         print("Data successfully saved to the database!")
     except Exception as e:
-        print("Error saving data: "e)
+        print("Error saving data: ", e)
 
 def Input_Gamer_Data():
     gamer_tag = input("Please enter Your Gamer tag - ")
@@ -87,8 +87,13 @@ def Fetch_Game_Tag_Data(tag):
     return result
 
 def Gen_Card(data):
-    
-
+    image = Image.new("RGBA", (1920, 1080), (255,255,255,255))
+    draw_obj = ImageDraw.Draw(image)
+    for i in range(1080):
+        alpha = 255 * (1 - (i/1080) )    
+        draw_obj.line([(0, i), (1920, i)], fill=(216, 236, 209, alpha))
+    tag = data[0]
+    image.save("%s Card.png",tag)
 
 def Bring_gamer_data():
     db_cur.execute("Select * from general_info")

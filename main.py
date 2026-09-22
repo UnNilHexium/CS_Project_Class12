@@ -1,12 +1,11 @@
 #   Project by UnNilHexium, TepicKid, WhiteDiger
-#              UnNilHexium - Codebase, Debugging
-#              TepicKid    - Idea, Synopsis
-#              WhiteDiger  - Testing, Pitch
-#              Gemini AI   - Teaching/Guidance/Code
+#                UnNilHexium - Codebase, Debugging
+#                TepicKid    - Idea, Synopsis
+#                WhiteDiger  - Testing, Pitch
+#                Gemini AI   - Teaching/Guidance/Code
 
 import mysql.connector as m
 from PIL import Image, ImageDraw, ImageFont
-
 
 try:
     gamer_data = m.connect(host="localhost", user="root", password="")
@@ -25,7 +24,7 @@ except Exception:
     print("DB does not exist. Creating database...")
     db_cur.execute("CREATE DATABASE gamer_data")
     db_cur.execute("USE gamer_data")
-   
+    
     create_table = '''CREATE TABLE IF NOT EXISTS general_info (
         gamer_tag VARCHAR(20) PRIMARY KEY,
         Age INT,
@@ -44,7 +43,6 @@ except Exception:
     db_cur.execute(create_table)
 
 def Commit_to_Table(data):
-    
     try:
         sql = '''INSERT INTO general_info 
                  (gamer_tag, Age, EXP, G_Perf, G_Like, G_Sec, G_story, G_Graph, 
@@ -72,7 +70,6 @@ def Input_Gamer_Data():
     Social_4_Plat = input("Another platform you are on - ")
     Social_4_UName = input("Username on said Platform - ")
     
-    
     gamer_data_tuple = (
         gamer_tag, Age, EXP, G_Perf, G_Like, G_Sec, 
         G_story, G_Graph, Social_1, Social_2, Social_3, 
@@ -87,16 +84,20 @@ def Fetch_Game_Tag_Data(tag):
     return result
 
 def Gen_Card(data):
-    image = Image.new("RGBA", (1920, 1080), (255,255,255,255))
+    image = Image.new("RGBA", (1920, 1080), (255, 255, 255, 255))
     draw_obj = ImageDraw.Draw(image)
     for i in range(1080):
-        alpha = 255 * (1 - (i/1080) )    
+        alpha = int(255 * (1 - (i / 1080)))    
         draw_obj.line([(0, i), (1920, i)], fill=(216, 236, 209, alpha))
-    tag = data[0]
-    image.save("%s Card.png",tag)
+    
+    # Using old-style % formatting instead of f-strings or .format()
+    name = "%s Card.png" % data[0]
+    image.save(name)
+    print("Card successfully generated and saved as %s!" % name)
 
 def Bring_gamer_data():
     db_cur.execute("Select * from general_info")
     print(db_cur.fetchall())
 
+# Run the input function cleanly
 Input_Gamer_Data()

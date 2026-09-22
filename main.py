@@ -24,8 +24,9 @@ except Exception:
     print("DB does not exist. Creating database...")
     db_cur.execute("CREATE DATABASE gamer_data")
     db_cur.execute("USE gamer_data")
-    
-    create_table = '''CREATE TABLE IF NOT EXISTS general_info (
+  
+def Create_Table():
+    table = '''CREATE TABLE IF NOT EXISTS general_info (
         gamer_tag VARCHAR(20) PRIMARY KEY,
         Age INT,
         EXP INT,
@@ -40,7 +41,9 @@ except Exception:
         Social_Other_Plat VARCHAR(50),
         Social_Other_UName VARCHAR(50)
     )'''
-    db_cur.execute(create_table)
+    db_cur.execute(table)
+
+
 
 def Commit_to_Table(data):
     try:
@@ -56,6 +59,7 @@ def Commit_to_Table(data):
         print("Error saving data: ", e)
 
 def Input_Gamer_Data():
+    Create_Table()
     gamer_tag = input("Please enter Your Gamer tag - ")
     Age = int(input("Please enter your current age - "))
     EXP = int(input("How long have you been gaming? "))
@@ -99,5 +103,4 @@ def Bring_gamer_data():
     db_cur.execute("Select * from general_info")
     print(db_cur.fetchall())
 
-# Run the input function cleanly
 Input_Gamer_Data()

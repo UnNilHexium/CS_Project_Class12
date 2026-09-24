@@ -82,19 +82,38 @@ def Input_Gamer_Data():
     
     Commit_to_Table(gamer_data_tuple)
 
-def Fetch_Game_Tag_Data(tag):
+def Fetch_Game_Tag_Data():
+    tag = input("What is the Gamer-Tag that you want to generate for?(cASe SenSiTiVE) ")
     db_cur.execute("select * from general_info where gamer_tag = %s", (tag,))
     result = db_cur.fetchone()
+    if result == None:
+        print("Tag not found. Exiting....")
+        return 1
     return result
 
-def Gen_Card(data):
-    image = Image.new("RGBA", (1920, 1080), (255, 255, 255, 255))
+def Gen_Card(): 
+    data = Fetch_Game_Tag_Data()
+    if data == 1:
+        return 1
+    image = Image.new("RGB", (1920, 1080), (255, 255, 255))
     draw_obj = ImageDraw.Draw(image)
+
+    (gamer_tag, age, exp, g_perf, g_like, g_sec, 
+    g_story, g_graph, discord, steam, youtube, o_plat, o_uname) = data
+
+    start_color = (216,236,209)
+    end_color = (222, 176, 225)
     for i in range(1080):
-        alpha = int(255 * (1 - (i / 1080)))    
-        draw_obj.line([(0, i), (1920, i)], fill=(216, 236, 209, alpha))
+        ratio = 1 - (i/1080)
+        r=int(start_color[0] + ((end_color[0]-start_color[0])*ratio))
+        g=int(start_color[1] + ((end_color[1]-start_color[1])*ratio))
+        b=int(start_color[2] + ((end_color[2]-start_color[2])*ratio))
+        
+        draw_obj.line([(0, i), (1920, i)], fill=(r, g, b))
     
-    # Using old-style % formatting instead of f-strings or .format()
+    f_title=ImageFont.truetype("")
+
+
     name = "%s Card.png" % data[0]
     image.save(name)
     print("Card successfully generated and saved as %s!" % name)

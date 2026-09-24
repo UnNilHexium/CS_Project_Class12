@@ -203,7 +203,7 @@ def iteration():
     1. Add an entry of your username to the database(A)
     2. Inspect all entries(I)
     3. Generate your very own Gamer Card(G) ''')
-    action = input("What would you like to do? ").lower
+    action = input("What would you like to do? ").lower()
     if action == 'a':
         Input_Gamer_Data()
         return 0
@@ -224,3 +224,5 @@ def main():
         Again = input("Go again ? (Enter)\nStop? (s)").lower
         if Again == 's':
             break
+
+main()

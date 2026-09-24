@@ -197,9 +197,30 @@ def Gen_Card():
 def Bring_gamer_data():
     db_cur.execute("Select * from general_info")
     print(db_cur.fetchall())
+def iteration():
+    print("Welcome to CardGen.Co, where you can make yourself a Business Card, But for gamers.")
+    print('''You can -
+    1. Add an entry of your username to the database(A)
+    2. Inspect all entries(I)
+    3. Generate your very own Gamer Card(G) ''')
+    action = input("What would you like to do? ").lower
+    if action == 'a':
+        Input_Gamer_Data()
+        return 0
+    elif action == 'i':
+        Bring_gamer_data()
+        return 0
+    elif action == 'g':
+        Gen_Card()
+        return 0
+    else: 
+        print('please select valid operation')
+        return iteration()
 
-print("Welcome to CardGen.Co, where you can make yourself a Business Card, But for gamers.")
-Print('''You can -
-1. Add an entry of your username to the database(A)
-2. Inspect all entries(I)
-3. Generate your very own Gamer Card(G) ''')
+def main():
+    Again = ''
+    while True:
+        iteration()
+        Again = input("Go again ? (Enter)\nStop? (s)").lower
+        if Again == 's':
+            break
